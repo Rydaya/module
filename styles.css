@@ -1,0 +1,209 @@
+body{
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    padding: 0 25px;
+}
+
+/*---------Header-------------*/
+.head{
+    padding-top: 10px;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 9px;
+    margin-bottom: 9px;
+}
+
+.header__cart{
+    position: relative;
+}
+
+.header__cart_count{
+    background-color: #0E49B5;
+    color: #fff;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: none;
+    font-weight: 700;
+    position: absolute;
+    top: 20px;
+    right: 26px;
+}
+
+.banner{
+    background: url(./img/banners/ipad_air_banner.jpg) 0 0 / 100% auto no-repeat;
+    height: 512px;
+    text-align: center;
+    margin-bottom: 40px;
+    padding-top: 185px;
+}
+
+.banner__title{
+    font-weight: 400;
+    font-size: 72px;
+    line-height: 84px;
+    color: #fff;
+    margin-bottom: 22px;
+}
+
+.banner__btn{
+    
+}
+
+.btn{
+    width: 150px;
+    height: 50px;
+    background-color: #0E49B5;
+    color: #ffffff;
+    font-size: 20px;
+    border: none;
+    border-radius: 5px;
+}
+
+.btn_noactive{
+    background-color: #DDDDDD;
+}
+
+/*---------MainContent-------------*/
+
+.main{
+
+}
+
+/*---------Search-------------*/
+
+.search{
+    margin-bottom: 40px;
+    height: 60px;
+    position: relative;
+}
+.search__input{
+    font-size: 18px;
+    width: 100%;
+    height: 60px;
+    border: 1px solid #E0E0E0;
+    border-radius: 5px;
+    box-shadow: 0px 0px 25px 0px rgb(0,0,0,0.15);
+    outline: none;
+    padding-left: 68px;
+    padding-right: 120px;
+    background: url('./img/icons/search.svg') 23px center  no-repeat;
+}
+.search__btn{
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+.search__btn_filter{
+    position: absolute;
+    right: 63px;
+    bottom: 10px;
+}
+.search__btn_settings{
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    padding-top: 4px;
+}
+
+/*---------MainContentBody-------------*/
+
+.wrapper{
+    max-width: 1024px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.products{
+    max-width: 1024px;
+}
+
+.products__cards{
+    
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.products__card{
+    max-width: 300px;
+    border: 0px solid #E0E0E0;
+    border-radius: 10px;
+    box-shadow: 0px 0px 25px 0px rgb(0,0,0,0.15);
+    margin-bottom: 50px;
+}
+
+.card__goods{
+    margin: 0 auto;
+    text-align: center;
+    padding: 19px 0;
+}
+
+.goods__img{
+    width: 200px;
+    height: 200px;
+    margin-bottom: 8px;
+}
+
+.goods__title{
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 28px;
+    margin-bottom: 7px;
+}
+
+.bold{
+    font-weight: 700;
+}
+
+.goods__availability{
+    margin-bottom: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.goods__InStock{
+    margin-left: 6px;
+}
+
+.goods__price{
+    margin-bottom: 18px;
+}
+
+.goods__availability, .goods__price{
+    font-size: 14px;
+    line-height: 16px;
+    color: #767272;
+}
+
+.card__reviews{
+    background-color: #DAE2EA;
+    display: flex;
+    border-radius: 0px 0px 10px 10px;
+    padding: 19px 23px 0 13px;
+    font-size: 14px;
+    color: #3B3E66;
+    line-height: 20px;
+}
+
+.reviews__like{
+    margin: 0px 11px 23px 0px;
+    padding-top: 1px;
+    fill: #ffb600;
+}
+
+.reviews__text{
+    margin-right: 50px;
+    margin-bottom: 23px;
+}
+
+.reviews__orders{
+    text-align: center;
+    margin-bottom: 23px;
+}
+
