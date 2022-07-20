@@ -1,3 +1,63 @@
+//Делаем карусель для баннера
+const banner = document.querySelector('.banner__image');
+const bannerImg = banner.querySelector('img');
+const bannerTitle = document.querySelector('.banner__title');
+const bannerBtn = document.querySelector('.banner__btn');
+
+const sliderConfig = [
+    {
+        title: 'IPad Air',
+        img: 'ipad_air_banner.jpg',
+    },
+    {
+        title: 'AirPods Pro',
+        img: 'airpods_pro_banner.png',
+    },
+    {
+        title: 'Apple Watch 4',
+        img: 'watch_banner.jpg',
+        positionClass: 'banner__title_left',
+        btnPositionClass: 'banner__btn_left',
+    },
+    {
+        title: '',
+        img: 'iphone_12_banner.jpg',
+        colorClass: 'banner__title_black',
+    },
+    {
+        title: 'MacBook Pro 16',
+        img: 'mac_book_banner.jpg'
+    },
+    {
+        title: 'Apple TV',
+        img: 'apple_tv_banner.png',
+        colorClass: 'banner__title_black',
+        positionClass: 'banner__title_left',
+        btnPositionClass: 'banner__btn_left',
+    },
+    {
+        title: 'AirPods Max',
+        img: 'air_pods_max_banner.jpg',
+        colorClass: 'banner__title_black',
+    },
+];
+
+function makeSwap() {
+    sliderConfig.forEach((bannerInfo, currentIndex) => {
+        setTimeout(() => {
+            bannerImg.src = './img/banners/' + bannerInfo.img;
+            bannerTitle.innerHTML = bannerInfo.title;
+            bannerInfo.hasOwnProperty('colorClass') ? bannerTitle.classList.add(bannerInfo.colorClass) : bannerTitle.classList.remove('banner__title_black');
+            bannerInfo.hasOwnProperty('positionClass') ? bannerTitle.classList.add(bannerInfo.positionClass) : bannerTitle.classList.remove('banner__title_left');
+            bannerInfo.hasOwnProperty('btnPositionClass') ? bannerBtn.classList.add(bannerInfo.btnPositionClass) : bannerBtn.classList.remove('banner__btn_left');
+        }, 3000 * currentIndex);
+    });
+}
+
+makeSwap();
+setInterval(makeSwap, 21000);
+
+//Делаем карточки товара
 import { items } from './items.js';
 console.log(items);
 
