@@ -7,6 +7,7 @@ body{
 /*---------Header-------------*/
 .head{
     padding-top: 10px;
+    overflow: hidden;
 }
 
 .header{
@@ -34,19 +35,59 @@ body{
 }
 
 .banner{
-    background: url(./img/banners/ipad_air_banner.jpg) 0 0 / 100% auto no-repeat;
-    height: 512px;
-    text-align: center;
     margin-bottom: 40px;
-    padding-top: 185px;
+    position: relative;
+    transition: all 1s ease-out;
+}
+
+.banner__image{
+    max-height: 512px;
+    margin-bottom: 25px;
+}
+
+.banner__image img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
 }
 
 .banner__title{
-    font-weight: 400;
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, 0);
     font-size: 72px;
-    line-height: 84px;
-    color: #fff;
-    margin-bottom: 22px;
+    color: #ffffff;
+    font-weight: 400;
+    white-space: nowrap;
+}
+
+.banner__title_black{
+    color: #000;
+}
+
+.banner__title_left{
+    top: 15%;
+    left: 3%;
+    transform: none;
+}
+
+.banner__title_color{
+    color: #000000;
+}
+
+.banner__btn{
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.banner__btn_left{
+    top: 45%;
+    left: 3%;
+    transform: none;
 }
 
 .btn{
@@ -200,12 +241,21 @@ body{
 }
 
 /*--------Media queries-----------*/
+@media screen and (max-width: 1080px){
+    .banner{
+        background-size: cover;
+    }
+}
+
 @media screen and (max-width: 1000px){
     .products{
         max-width: 800px;
     }
     .products__cards{
         justify-content: space-around;
+    }
+    .banner{
+        padding-top: 120px;
     }
 }
 
