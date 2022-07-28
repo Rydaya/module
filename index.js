@@ -3,6 +3,8 @@ const banner = document.querySelector('.banner__image');
 const bannerImg = banner.querySelector('img');
 const bannerTitle = document.querySelector('.banner__title');
 const bannerBtn = document.querySelector('.banner__btn');
+const hystmodalShadow = document.querySelector('.hystmodal__shadow');
+const popup = document.querySelector('.popup');
 
 const sliderConfig = [
     {
@@ -57,6 +59,7 @@ function makeSwap() {
 makeSwap();
 setInterval(makeSwap, 21000);
 
+
 //Делаем карточки товара
 import { items } from './items.js';
 console.log(items);
@@ -64,6 +67,12 @@ console.log(items);
 const productsCards = document.querySelector('.products__cards');
 
 for (let item of items) {
+    const img = `./img/${item.imgUrl}`;
+    const title = item.name;
+    const reviewsValue = item.orderInfo.reviews > 100 ? '99' : item.orderInfo.reviews;
+    const price = item.price;
+    const inStock = item.orderInfo.inStock;
+
     //Создаем карточку товара
     const productsCard = document.createElement('div');
     productsCard.classList.add('products__card');
@@ -77,13 +86,14 @@ for (let item of items) {
     //Cоздаем картинку, указываем ссылку
     const goodsImg = document.createElement('img');
     goodsImg.classList.add('goods__img');
-    goodsImg.src = `./img/${item.imgUrl}`;
+    goodsImg.src = img;
     cardGoods.appendChild(goodsImg);
 
     //Cоздаем заголовок товара
     const goodsTitle = document.createElement('p');
     goodsTitle.classList.add('goods__title');
-    goodsTitle.innerText = item.name;
+    goodsTitle.classList.add('title');
+    goodsTitle.innerText = title;
     cardGoods.appendChild(goodsTitle);
 
     //Cоздаем инфу наличия
@@ -109,7 +119,7 @@ for (let item of items) {
 
     const goodsInStockValue = document.createElement('span');
     goodsInStockValue.classList.add('bold');
-    goodsInStockValue.innerText = `${item.orderInfo.inStock} `;
+    goodsInStockValue.innerText = `${inStock} `;
     goodsInStock.prepend(goodsInStockValue);
 
     goodsAvailability.appendChild(goodsInStock);
@@ -123,7 +133,7 @@ for (let item of items) {
     const goodsPriceValue = document.createElement('span');
     goodsPriceValue.classList.add('goods__price_value');
     goodsPriceValue.classList.add('bold');
-    goodsPriceValue.innerText = `${item.price} $`;
+    goodsPriceValue.innerText = `${price} $`;
     goodsPrice.appendChild(goodsPriceValue);
 
     cardGoods.appendChild(goodsPrice);
@@ -141,6 +151,7 @@ for (let item of items) {
     //Создаем нижнюю часть карточки
     const cardReviews = document.createElement('div');
     cardReviews.classList.add('card__reviews');
+    cardReviews.classList.add('reviews');
     productsCard.appendChild(cardReviews);
 
     //Добавляем иконку сердечка
@@ -163,9 +174,7 @@ for (let item of items) {
     reviewsText.innerText = 'Positive reviews Above avarage';
 
     const reviewsTextValue = document.createElement('span');
-    reviewsTextValue.classList.add('reviews__text_value');
     reviewsTextValue.classList.add('bold');
-    const reviewsValue = item.orderInfo.reviews > 100 ? '99' : item.orderInfo.reviews;
     reviewsTextValue.innerText = `${reviewsValue}% `;
     reviewsText.prepend(reviewsTextValue);
 
@@ -183,7 +192,124 @@ for (let item of items) {
     reviewsOrders.prepend(reviewsOrdersValue);
 
     cardReviews.appendChild(reviewsOrders);
+
+    //Создаем и наполняем модальное окно
+
+    let popupIsOpen = false;
+
+    document.addEventListener('click', (e) => {
+        if (e.composedPath().includes(productsCard) && !popupIsOpen) {
+            popup.classList.add('popup__open');
+            hystmodalShadow.classList.add('hystmodal__shadow_show');
+            popupIsOpen = !popupIsOpen;
+
+            //Добавляем фото модалки
+            const popupImg = document.querySelector('.popup__img');
+            popupImg.src = img;
+
+            //Добавляем заголовок модалки
+            const popupTitle = document.querySelector('.popup__title');
+            popupTitle.innerHTML = title;
+
+            //Добавляем процент заказов
+            const popupTextValue = document.querySelector('.popup__text_value');
+            popupTextValue.classList.add('bold');
+            popupTextValue.innerText = `${reviewsValue}% `;
+
+            //Добавляем количество заказов
+            const popupOrdersValue = document.querySelector('.popup__orders_value');
+            popupOrdersValue.classList.add('bold');
+            popupOrdersValue.innerText = '---';
+
+            //Добавляем свойства товаров
+            const propСolor = document.querySelector('.prop__color');
+            propСolor.innerText = item.color.join(' │ ');
+
+            const propOs = document.querySelector('.prop__os');
+            propOs.innerText = item.os;
+
+            const propChip = document.querySelector('.prop__chip');
+            propChip.innerText = item.chip.name;
+
+            const propHeight = document.querySelector('.prop__height');
+            propHeight.innerText = `${item.size.height} cm`;
+
+            const propWidth = document.querySelector('.prop__width');
+            propWidth.innerText = `${item.size.width} cm`;
+
+            const propDepth = document.querySelector('.prop__depth');
+            propDepth.innerText = `${item.size.depth} cm`;
+
+            const propWeight = document.querySelector('.prop__weight');
+            propWeight.innerText = `${item.size.weight * 1000} g`;
+
+            //Добавляем цену
+            const popupPrice = document.querySelector('.popup__price');
+            popupPrice.innerText = '$ ' + price;
+
+            //Добавляем oстаток
+            const popupStockValue = document.querySelector('.popup__stock_value');
+            popupStockValue.innerText = inStock;
+
+        } else if (!e.composedPath().includes(popup) && popupIsOpen) {
+            popup.classList.remove('popup__open');
+            hystmodalShadow.classList.remove('hystmodal__shadow_show');
+            popupIsOpen = !popupIsOpen;
+        }
+    })
 }
+
+// Логика открытия блоков фильтра
+const ifPressed = {
+    filterBtnPressed: false,
+    priceOpen: false,
+    colorOpen: false,
+    memoryOpen: false,
+    osOpen: false,
+    displayOpen: false,
+}
+
+const searchBtnFilter = document.querySelector('.search__btn_filter');
+const container = document.querySelector('.container');
+const accordionFilter = document.querySelector('.accordion__filter');
+const products = document.querySelector('.products');
+
+searchBtnFilter.addEventListener('click', () => {
+    if (!ifPressed.filterBtnPressed) {
+        container.classList.add('containerFlex');
+        products.classList.add('productsFilterOpened');
+        accordionFilter.classList.remove('invisible');
+        ifPressed.filterBtnPressed = true;
+    } else {
+        container.classList.remove('containerFlex');
+        products.classList.remove('productsFilterOpened');
+        accordionFilter.classList.add('invisible');
+        ifPressed.filterBtnPressed = false;
+    }
+});
+
+//Логика открытия чекбоксов
+const filterHeader = Array.from(accordionFilter.querySelectorAll('.filter__header'));
+
+function openFilter(header) {
+    return header.addEventListener('click', () => {
+        const parentElem = header.parentNode;
+        const nextElem = header.nextElementSibling;
+        if (nextElem.classList.contains('invisible')) {
+            nextElem.classList.remove('invisible');
+            header.classList.add('filter__header_open');
+            parentElem.style.backgroundColor = '#fff';
+        } else {
+            nextElem.classList.add('invisible');
+            header.classList.remove('filter__header_open');
+            parentElem.style.backgroundColor = '#EDF3FF';
+        }
+    });
+}
+
+filterHeader.forEach(elem => {
+    openFilter(elem);
+});
 
 
 
