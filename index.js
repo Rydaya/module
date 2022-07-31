@@ -5,6 +5,9 @@ const bannerTitle = document.querySelector('.banner__title');
 const bannerBtn = document.querySelector('.banner__btn');
 const hystmodalShadow = document.querySelector('.hystmodal__shadow');
 const popup = document.querySelector('.popup');
+const searchInput = document.querySelector('.search__input');
+
+
 
 const sliderConfig = [
     {
@@ -58,7 +61,6 @@ function makeSwap() {
 
 makeSwap();
 setInterval(makeSwap, 21000);
-
 
 //Делаем карточки товара
 import { items } from './items.js';
@@ -141,8 +143,10 @@ for (let item of items) {
     //Cоздаем кнопку
     const goodsBtn = document.createElement('button');
     goodsBtn.classList.add('btn');
-    if (item.orderInfo.inStock <= 0) {
+    goodsBtn.removeAttribute('disabled');
+    if (inStock <= 0) {
         goodsBtn.classList.add('btn_noactive');
+        goodsBtn.setAttribute('disabled', true);
     }
     goodsBtn.innerText = 'Add to card';
 
@@ -251,6 +255,15 @@ for (let item of items) {
             const popupStockValue = document.querySelector('.popup__stock_value');
             popupStockValue.innerText = inStock;
 
+            //Добавляем кнопку
+            const popupBtn = document.querySelector('.popup__btn');
+            popupBtn.removeAttribute('disabled');
+            popupBtn.classList.remove('btn_noactive');
+            if (inStock <= 0) {
+                popupBtn.classList.add('btn_noactive');
+                popupBtn.setAttribute('disabled', true);
+            }
+
         } else if (!e.composedPath().includes(popup) && popupIsOpen) {
             popup.classList.remove('popup__open');
             hystmodalShadow.classList.remove('hystmodal__shadow_show');
@@ -311,8 +324,25 @@ filterHeader.forEach(elem => {
     openFilter(elem);
 });
 
+//Логика поиска
 
-
+searchInput.addEventListener('keyup', (e) => {
+    const valueForSearch = e.target.value.toLowerCase();
+    const cards = Array.from(document.querySelectorAll('.products__card'));
+    const productsNotFound = document.querySelector('.products__notfound');
+    for (let card of cards) {
+        productsNotFound.classList.add('invisible');
+        card.classList.remove('invisible');
+        const titleValue = card.querySelector('.goods__title').innerHTML.toLowerCase();
+        if (!titleValue.includes(valueForSearch)) {
+            card.classList.add('invisible');
+        }
+    }
+    if (cards.every(card => card.classList.contains('invisible'))) {
+        productsNotFound.classList.remove('invisible');
+        productsNotFound.innerHTML = valueForSearch + ' not found';
+    }
+})
 
 
 
